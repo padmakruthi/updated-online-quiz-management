@@ -3,376 +3,203 @@ package com.quiz.service;
 import com.quiz.model.Question;
 import com.quiz.model.QuestionReview;
 import com.quiz.model.QuizResult;
+import com.quiz.util.DBUtil;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Repository containing basic-to-medium level questions on Java Full Stack & DevOps.
+ * Repository containing questions on Java Packages.
+ * Supports JDBC connection to MySQL database: java_question_bank (table: mcq_questions).
  */
 public class QuizRepository {
 
     private static final List<Question> ALL_QUESTIONS = new ArrayList<Question>();
 
     static {
-        // --- 1. CORE JAVA (BASIC TO MEDIUM) ---
+        // Fallback in-memory questions matching mcq_questions table
+        ALL_QUESTIONS.add(new Question(1, "Java Packages", "What is a package in Java?", null,
+            new String[]{"A collection of variables only", "A collection of related classes, interfaces, and other types", "A type of loop", "A method inside a class"},
+            1, "A package in Java is a collection of related classes, interfaces, and other types that provides namespace management and access protection."));
 
-        // Q1: OOP Basics
-        ALL_QUESTIONS.add(new Question(
-            1,
-            "Core Java",
-            "Which of the following is NOT one of the four fundamental principles of Object-Oriented Programming (OOP) in Java?",
-            null,
-            new String[]{
-                "Encapsulation",
-                "Compilation",
-                "Inheritance",
-                "Polymorphism"
-            },
-            1,
-            "The four main pillars of OOP in Java are Encapsulation, Inheritance, Polymorphism, and Abstraction. Compilation is the process of translating source code into bytecode."
-        ));
+        ALL_QUESTIONS.add(new Question(2, "Java Packages", "Which keyword is used to declare a package in Java?", null,
+            new String[]{"import", "include", "package", "class"},
+            2, "The 'package' keyword is used to declare the package to which the source file belongs."));
 
-        // Q2: Final Keyword
-        ALL_QUESTIONS.add(new Question(
-            2,
-            "Core Java",
-            "What is the effect of applying the 'final' keyword to a variable in Java?",
-            null,
-            new String[]{
-                "The variable can only be accessed within the same package",
-                "The variable's value becomes constant and cannot be reassigned once initialized",
-                "The variable is automatically destroyed by the Garbage Collector",
-                "The variable can only store primitive numeric values"
-            },
-            1,
-            "When a variable is declared with the 'final' keyword, its value or reference cannot be reassigned after initialization."
-        ));
+        ALL_QUESTIONS.add(new Question(3, "Java Packages", "Where should the package declaration normally appear?", null,
+            new String[]{"After the class declaration", "Before imports and type declarations", "Inside main()", "At the end of the file"},
+            1, "The package statement must appear before any imports and type declarations at the very beginning of the source file."));
 
-        // Q3: String Comparison
-        ALL_QUESTIONS.add(new Question(
-            3,
-            "Core Java",
-            "What is the difference between '==' and the '.equals()' method when comparing two String objects in Java?",
-            null,
-            new String[]{
-                "'==' checks if values are equal, while '.equals()' checks memory addresses",
-                "'==' compares object memory references (addresses), while '.equals()' compares the actual text content",
-                "Both '==' and '.equals()' behave exactly the same for Strings",
-                "'.equals()' only works for primitive data types"
-            },
-            1,
-            "'==' verifies if two references point to the exact same memory location, whereas String.equals() checks if the sequence of characters (content) matches."
-        ));
+        ALL_QUESTIONS.add(new Question(4, "Java Packages", "Which package is imported automatically?", null,
+            new String[]{"java.util", "java.io", "java.lang", "java.net"},
+            2, "The 'java.lang' package provides fundamental language classes and is automatically imported into every Java source file."));
 
-        // Q4: Collections
-        ALL_QUESTIONS.add(new Question(
-            4,
-            "Core Java",
-            "Which Java Collection interface implementation stores key-value pairs and does NOT guarantee any specific ordering?",
-            null,
-            new String[]{
-                "ArrayList",
-                "TreeSet",
-                "HashMap",
-                "LinkedList"
-            },
-            2,
-            "HashMap stores elements as key-value pairs (Map interface) and does not guarantee any order of elements over time."
-        ));
+        ALL_QUESTIONS.add(new Question(5, "Java Packages", "Which keyword allows you to use classes from another package?", null,
+            new String[]{"package", "import", "extends", "implements"},
+            1, "The 'import' keyword allows classes, interfaces, and static members from external packages to be used by simple name."));
 
-        // Q5: Exception Handling
-        ALL_QUESTIONS.add(new Question(
-            5,
-            "Core Java",
-            "In Java exception handling, which block is guaranteed to execute whether an exception occurs or not?",
-            null,
-            new String[]{
-                "catch block",
-                "throw block",
-                "finally block",
-                "throws clause"
-            },
-            2,
-            "The 'finally' block always executes after try and catch blocks, making it ideal for cleaning up resources like closing streams or database connections."
-        ));
+        ALL_QUESTIONS.add(new Question(6, "Java Packages", "Which statement correctly imports Scanner?", null,
+            new String[]{"import java.util.Scanner;", "include java.util.Scanner;", "package java.util.Scanner;", "import Scanner.java.util;"},
+            0, "Scanner resides in java.util, imported using 'import java.util.Scanner;'."));
 
-        // --- 2. SPRING BOOT & JAVA FULL STACK (BASIC TO MEDIUM) ---
+        ALL_QUESTIONS.add(new Question(7, "Java Packages", "What does import java.util.*; do?", "import java.util.*;",
+            new String[]{"Imports only Scanner", "Imports all Java packages", "Makes types in java.util available by simple names", "Creates a package"},
+            2, "'import java.util.*;' is an on-demand import declaration that makes types directly in java.util available by simple names."));
 
-        // Q6: Spring Boot Basics
-        ALL_QUESTIONS.add(new Question(
-            6,
-            "Spring Boot",
-            "What is the primary benefit of using Spring Boot compared to the traditional Spring Framework?",
-            null,
-            new String[]{
-                "It eliminates the need to write Java code",
-                "It provides auto-configuration, embedded servers (like Tomcat), and starter dependencies for rapid development",
-                "It replaces HTML and JavaScript in frontend development",
-                "It only works with offline applications"
-            },
-            1,
-            "Spring Boot simplifies Spring development by offering opinionated starter POMs, automatic sensible default configurations, and embedded servlet containers (Tomcat, Jetty)."
-        ));
+        ALL_QUESTIONS.add(new Question(8, "Java Packages", "What does import java.util.*; import?", null,
+            new String[]{"Imports subpackages automatically", "Imports accessible types directly in java.util, not subpackages", "Imports only interfaces", "Imports only classes with main()"},
+            1, "Wildcard imports in Java do not recursively import subpackages. It only imports accessible types directly in java.util."));
 
-        // Q7: Spring Web Annotations
-        ALL_QUESTIONS.add(new Question(
-            7,
-            "Spring Boot",
-            "Which annotation is used on a method in a Spring Boot controller to handle incoming HTTP GET requests?",
-            null,
-            new String[]{
-                "@GetMapping",
-                "@PostMapping",
-                "@ResponseBody",
-                "@PutMapping"
-            },
-            0,
-            "@GetMapping is a shortcut annotation that acts as a synonym for @RequestMapping(method = RequestMethod.GET)."
-        ));
+        ALL_QUESTIONS.add(new Question(9, "Java Packages", "Which is a valid package name?", null,
+            new String[]{"my package", "123package", "com.college.student", "com-college"},
+            2, "'com.college.student' follows standard Java identifier rules separated by dots."));
 
-        // Q8: Dependency Injection
-        ALL_QUESTIONS.add(new Question(
-            8,
-            "Spring Boot",
-            "Which annotation is commonly used in Spring to automatically inject a dependency bean into another component?",
-            null,
-            new String[]{
-                "@Injectable",
-                "@Autowired",
-                "@Component",
-                "@Repository"
-            },
-            1,
-            "@Autowired is used in Spring to automatically wire (inject) collaborating beans by type into fields, constructors, or setter methods."
-        ));
+        ALL_QUESTIONS.add(new Question(10, "Java Packages", "Which declaration is correct for a class in college?", null,
+            new String[]{"import college;", "package college;", "class package college;", "include college;"},
+            1, "The statement 'package college;' specifies that the class belongs to package college."));
 
-        // Q9: REST API HTTP Status
-        ALL_QUESTIONS.add(new Question(
-            9,
-            "Java Full Stack",
-            "In RESTful web services, which HTTP status code indicates a successful request?",
-            null,
-            new String[]{
-                "404 Not Found",
-                "500 Internal Server Error",
-                "200 OK",
-                "401 Unauthorized"
-            },
-            2,
-            "HTTP 200 OK is the standard response code for successful HTTP requests (such as GET, PUT, or POST)."
-        ));
+        ALL_QUESTIONS.add(new Question(11, "Java Packages", "Which access modifier allows access from any package if the class is accessible?", null,
+            new String[]{"private", "Default", "protected", "public"},
+            3, "'public' grants access to members from any package, as long as the containing class itself is accessible."));
 
-        // Q10: ORM Concept
-        ALL_QUESTIONS.add(new Question(
-            10,
-            "Java Full Stack",
-            "In Java Full Stack backend development, what does 'ORM' stand for?",
-            null,
-            new String[]{
-                "Object-Relational Mapping",
-                "Online Resource Management",
-                "Ordered Relationship Model",
-                "Open Routing Module"
-            },
-            0,
-            "ORM stands for Object-Relational Mapping, a programming technique that maps Java classes (entities) to relational database tables (e.g. Hibernate, EclipseLink)."
-        ));
+        ALL_QUESTIONS.add(new Question(12, "Java Packages", "A member with no access modifier is accessible from:", null,
+            new String[]{"Every package", "Only the same class", "Classes in the same package", "Only subclasses in other packages"},
+            2, "Default (package-private) access restricts visibility strictly to classes in the same package."));
 
-        // Q11: Spring Data JPA
-        ALL_QUESTIONS.add(new Question(
-            11,
-            "Java Full Stack",
-            "In Spring Data JPA, which interface provides ready-to-use CRUD methods like save(), findById(), and deleteById()?",
-            null,
-            new String[]{
-                "JpaRepository",
-                "HttpServlet",
-                "DataSource",
-                "EntityManagerFactory"
-            },
-            0,
-            "JpaRepository (extending PagingAndSortingRepository and CrudRepository) provides standard CRUD and pagination operations without writing manual SQL."
-        ));
+        ALL_QUESTIONS.add(new Question(13, "Java Packages", "Which modifier restricts access to the declaring class?", null,
+            new String[]{"public", "protected", "private", "Default"},
+            2, "'private' specifies that the member can only be accessed within the body of the class that declares it."));
 
-        // Q12: MVC Architecture
-        ALL_QUESTIONS.add(new Question(
-            12,
-            "Java Full Stack",
-            "In the Model-View-Controller (MVC) architecture, what is the role of the Controller?",
-            null,
-            new String[]{
-                "It represents the database tables and schemas directly",
-                "It displays the visual user interface to the client",
-                "It handles incoming HTTP requests, coordinates with service/model layers, and returns responses",
-                "It configures hardware networking ports"
-            },
-            2,
-            "The Controller acts as an intermediary: it intercepts incoming user requests, invokes business logic/services, and selects data or views to send back."
-        ));
+        ALL_QUESTIONS.add(new Question(14, "Java Packages", "A protected member can be accessed outside its package by:", null,
+            new String[]{"Any unrelated class", "A subclass subject to protected-access rules", "Only main()", "No class"},
+            1, "'protected' allows access within the same package, and outside the package by subclasses subject to Java's protected-access rules."));
 
-        // --- 3. DEVOPS (BASIC TO MEDIUM) ---
+        ALL_QUESTIONS.add(new Question(15, "Java Packages", "Which statement is correct for two classes in the same package?", null,
+            new String[]{"They can directly access each other private members", "They can access each other package-private members", "They must always import each other", "They must be in the same file"},
+            1, "Classes in the same package share package-level visibility and can access each other's package-private members without import statements."));
 
-        // Q13: Git Commit
-        ALL_QUESTIONS.add(new Question(
-            13,
-            "DevOps",
-            "Which Git command saves staged changes to your local repository along with a descriptive message?",
-            null,
-            new String[]{
-                "git push",
-                "git commit -m \"message\"",
-                "git add .",
-                "git checkout"
-            },
-            1,
-            "'git commit -m \"message\"' records a snapshot of staged changes to the local repository history with a commit message."
-        ));
+        ALL_QUESTIONS.add(new Question(16, "Java Packages", "What happens when Test in package demo imports java.util.Scanner correctly?", "package demo;\nimport java.util.Scanner;\n\npublic class Test {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n    }\n}",
+            new String[]{"Error because package is demo", "Error because Scanner cannot be imported", "It compiles if file and directory setup is correct", "Runtime error because packages require inheritance"},
+            2, "The syntax and structure are completely valid. It compiles cleanly when the directory matches the package demo."));
 
-        // Q14: Git Pull
-        ALL_QUESTIONS.add(new Question(
-            14,
-            "DevOps",
-            "Which Git command downloads commits from a remote repository and immediately integrates them into your current local branch?",
-            null,
-            new String[]{
-                "git pull",
-                "git clone",
-                "git init",
-                "git status"
-            },
-            0,
-            "'git pull' fetches commits from the remote repository and automatically merges them into the current active local branch."
-        ));
+        ALL_QUESTIONS.add(new Question(17, "Java Packages", "What is the fully qualified name of Student in package college?", null,
+            new String[]{"Student.college", "college.Student", "college/Student", "Student::college"},
+            1, "The fully qualified name prefix the package name before the class name separated by a dot: 'college.Student'."));
 
-        // Q15: Dockerfile
-        ALL_QUESTIONS.add(new Question(
-            15,
-            "DevOps",
-            "What is the plain text configuration file that contains the step-by-step instructions to create a Docker container image?",
-            null,
-            new String[]{
-                "docker-compose.yml",
-                "Dockerfile",
-                "pom.xml",
-                "application.properties"
-            },
-            1,
-            "A 'Dockerfile' is a text document containing commands (FROM, COPY, RUN, CMD, etc.) that Docker uses to assemble a container image."
-        ));
+        ALL_QUESTIONS.add(new Question(18, "Java Packages", "Which command compiles Student.java with package college and creates output directories?", null,
+            new String[]{"javac -d . Student.java", "java -d . Student.java", "import -d . Student.java", "package Student.java"},
+            0, "'javac -d . Student.java' compiles the file and automatically creates the destination directory structure."));
 
-        // Q16: Docker ps
-        ALL_QUESTIONS.add(new Question(
-            16,
-            "DevOps",
-            "Which Docker CLI command is used to list all currently running containers?",
-            null,
-            new String[]{
-                "docker build",
-                "docker ps",
-                "docker stop",
-                "docker run"
-            },
-            1,
-            "'docker ps' lists all active running containers. Adding the '-a' flag ('docker ps -a') lists both running and stopped containers."
-        ));
+        ALL_QUESTIONS.add(new Question(19, "Java Packages", "How do you run college.Student from the classpath root?", null,
+            new String[]{"java Student", "java college.Student", "java package.Student", "javac college.Student"},
+            1, "From the classpath root, Java requires the fully qualified name to run a class in a package: 'java college.Student'."));
 
-        // Q17: Linux Basics
-        ALL_QUESTIONS.add(new Question(
-            17,
-            "DevOps",
-            "In Linux, which command is used to display the contents (files and directories) of the current folder?",
-            null,
-            new String[]{
-                "pwd",
-                "cd",
-                "ls",
-                "mkdir"
-            },
-            2,
-            "'ls' lists directory contents in Linux. 'pwd' shows the current working directory, and 'cd' changes directory."
-        ));
+        ALL_QUESTIONS.add(new Question(20, "Java Packages", "Which statement about packages is true?", null,
+            new String[]{"They organize related classes and avoid naming conflicts", "Every class must import java.lang", "A package can contain only one class", "Packages cannot contain interfaces"},
+            0, "Packages organize related classes and interfaces into modular namespaces and prevent naming collisions."));
 
-        // Q18: CI/CD Meaning
-        ALL_QUESTIONS.add(new Question(
-            18,
-            "DevOps",
-            "What does the acronym 'CI/CD' stand for in DevOps methodology?",
-            null,
-            new String[]{
-                "Central Integration / Cloud Deployment",
-                "Continuous Integration / Continuous Deployment (or Delivery)",
-                "Code Inspection / Continuous Distribution",
-                "Container Interface / Container Driver"
-            },
-            1,
-            "CI/CD stands for Continuous Integration and Continuous Deployment (or Continuous Delivery), automating the building, testing, and deployment of software."
-        ));
+        ALL_QUESTIONS.add(new Question(21, "Java Packages", "Can different packages contain classes with the same simple name?", null,
+            new String[]{"No", "Yes, if their fully qualified names differ", "Only abstract classes", "Only classes with identical methods"},
+            1, "Yes, distinct packages can contain classes with the same simple name because their fully qualified names are unique."));
 
-        // Q19: CI/CD Tools
-        ALL_QUESTIONS.add(new Question(
-            19,
-            "DevOps",
-            "Which widely used open-source automation tool is popular for building and managing automated CI/CD pipelines?",
-            null,
-            new String[]{
-                "Jenkins",
-                "Eclipse IDE",
-                "Postman",
-                "MySQL Workbench"
-            },
-            0,
-            "Jenkins is a leading open-source automation server used by DevOps teams to build, test, and deploy applications continuously."
-        ));
+        ALL_QUESTIONS.add(new Question(22, "Java Packages", "How can you use ArrayList without an import statement?", null,
+            new String[]{"ArrayList a = new ArrayList();", "java.util.ArrayList a = new java.util.ArrayList();", "package.ArrayList a = new package.ArrayList();", "import.ArrayList a = new import.ArrayList();"},
+            1, "Using the fully qualified name 'java.util.ArrayList' allows the class to be used directly without an import declaration."));
 
-        // Q20: Maven pom.xml
-        ALL_QUESTIONS.add(new Question(
-            20,
-            "DevOps",
-            "In an Apache Maven Java project, what is the primary configuration file that manages project dependencies, plugins, and build goals?",
-            null,
-            new String[]{
-                "package.json",
-                "build.gradle",
-                "pom.xml",
-                "web.xml"
-            },
-            2,
-            "'pom.xml' (Project Object Model) is the XML file in Maven that defines project metadata, library dependencies, plugins, and build lifecycle configurations."
-        ));
+        ALL_QUESTIONS.add(new Question(23, "Java Packages", "Can a Java source file contain multiple package declarations?", null,
+            new String[]{"Yes, one per class", "Yes, separated by imports", "No, at most one package declaration", "Only with interfaces"},
+            2, "A Java compilation unit can contain at most one package declaration statement at the top of the file."));
+
+        ALL_QUESTIONS.add(new Question(24, "Java Packages", "What is the relationship between java.util and java.util.concurrent?", null,
+            new String[]{"A subpackage inherits parent types automatically", "A subpackage is a separate package", "Both names refer to the same package", "Subpackages cannot contain classes"},
+            1, "In Java, subpackages are separate packages with no inheritance of visibility from the parent package."));
+
+        ALL_QUESTIONS.add(new Question(25, "Java Packages", "Which statement about import is correct?", null,
+            new String[]{"It copies a class into the current package", "It changes a class package", "It allows an accessible, unambiguous type to be referred to by simple name", "It is mandatory for every class"},
+            2, "The import statement simply allows an accessible type to be referenced by its simple name instead of writing its fully qualified name."));
     }
 
     /**
-     * Return all available questions.
+     * Attempts to fetch questions from MySQL table `mcq_questions` via JDBC.
+     */
+    public static List<Question> fetchQuestionsFromDatabase() {
+        List<Question> list = new ArrayList<Question>();
+        String sql = "SELECT id, question, option_a, option_b, option_c, option_d, correct_answer, topic FROM mcq_questions ORDER BY id ASC";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String question = rs.getString("question");
+                String optA = rs.getString("option_a");
+                String optB = rs.getString("option_b");
+                String optC = rs.getString("option_c");
+                String optD = rs.getString("option_d");
+                String correctAns = rs.getString("correct_answer");
+                String topic = rs.getString("topic");
+
+                int correctOpt = 1;
+                if (correctAns != null && !correctAns.trim().isEmpty()) {
+                    char ch = Character.toUpperCase(correctAns.trim().charAt(0));
+                    if (ch == 'A') correctOpt = 0;
+                    else if (ch == 'B') correctOpt = 1;
+                    else if (ch == 'C') correctOpt = 2;
+                    else if (ch == 'D') correctOpt = 3;
+                }
+
+                String codeSnippet = null;
+                if (id == 7) codeSnippet = "import java.util.*;";
+                if (id == 16) codeSnippet = "package demo;\nimport java.util.Scanner;\n\npublic class Test {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n    }\n}";
+
+                list.add(new Question(
+                    id,
+                    topic != null ? topic : "Java Packages",
+                    question,
+                    codeSnippet,
+                    new String[]{optA, optB, optC, optD},
+                    correctOpt,
+                    getExplanation(id)
+                ));
+            }
+
+            if (!list.isEmpty()) {
+                System.out.println("[JDBC] Successfully loaded " + list.size() + " questions from MySQL database `java_question_bank.mcq_questions`!");
+                return list;
+            }
+        } catch (Exception e) {
+            System.err.println("[JDBC Notice] Failed fetching from MySQL (" + e.getMessage() + "). Using in-memory questions.");
+        }
+        return null;
+    }
+
+    private static String getExplanation(int id) {
+        if (id >= 1 && id <= ALL_QUESTIONS.size()) {
+            return ALL_QUESTIONS.get(id - 1).getExplanation();
+        }
+        return "Java packages provide modular namespaces and access protection.";
+    }
+
+    /**
+     * Return all 25 questions, fetching from JDBC database if available.
      */
     public static List<Question> getAllQuestions() {
+        List<Question> dbQuestions = fetchQuestionsFromDatabase();
+        if (dbQuestions != null && !dbQuestions.isEmpty()) {
+            return dbQuestions;
+        }
         return new ArrayList<Question>(ALL_QUESTIONS);
     }
 
     /**
-     * Get a specific subset of questions based on category filter.
+     * Get questions based on category filter.
      */
     public static List<Question> getQuestionsByCategory(String category) {
-        if (category == null || category.trim().isEmpty() || "ALL".equalsIgnoreCase(category)) {
-            return getAllQuestions();
-        }
-
-        List<Question> filtered = new ArrayList<Question>();
-        for (Question q : ALL_QUESTIONS) {
-            if ("JAVA".equalsIgnoreCase(category)) {
-                if (q.getTopic().equalsIgnoreCase("Core Java") || q.getTopic().equalsIgnoreCase("Spring Boot") || q.getTopic().equalsIgnoreCase("Java Full Stack")) {
-                    filtered.add(q);
-                }
-            } else if ("DEVOPS".equalsIgnoreCase(category)) {
-                if (q.getTopic().equalsIgnoreCase("DevOps")) {
-                    filtered.add(q);
-                }
-            } else if (q.getTopic().equalsIgnoreCase(category)) {
-                filtered.add(q);
-            }
-        }
-        return filtered.isEmpty() ? getAllQuestions() : filtered;
+        return getAllQuestions();
     }
 
     /**
@@ -384,7 +211,7 @@ public class QuizRepository {
                                          Integer previousScore, Integer previousTotal, int attemptNumber) {
         QuizResult result = new QuizResult();
         result.setCandidateName((candidateName == null || candidateName.trim().isEmpty()) ? "Student" : candidateName.trim());
-        result.setCategory(category);
+        result.setCategory(category != null ? category : "Java Packages");
         result.setTotalQuestions(questions.size());
         result.setPreviousScore(previousScore);
         result.setPreviousTotal(previousTotal);

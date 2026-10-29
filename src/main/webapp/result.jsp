@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assessment Results - Online Quiz Management</title>
+    <title>Assessment Results - Java Packages</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -23,7 +23,7 @@
 <div class="container">
     <div class="header">
         <h1>Assessment Report</h1>
-        <p>Technical Assessment Portal - Java Full Stack & DevOps</p>
+        <p>Technical Assessment Portal - Java Packages</p>
     </div>
 
     <div class="meta-bar">

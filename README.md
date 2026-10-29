@@ -1,34 +1,42 @@
 # Online Quiz Management System
-**Java Full Stack & DevOps Technical Assessment Portal**
+**Java Packages Technical Assessment Portal**
 
 ---
 
 ### Project Overview
-A complete, lightweight, human-crafted Dynamic Web Project built for Eclipse and Apache Tomcat. It provides a focused assessment testing Core Java, Spring Boot, JPA/Hibernate, RESTful Web Services, Docker, Kubernetes, CI/CD, and Git.
+A complete, lightweight, human-crafted Dynamic Web Project built for Eclipse and Apache Tomcat, as well as static deployment (Vercel / GitHub Pages). It provides an assessment containing 25 curated multiple choice questions testing Java Packages, import mechanics, access modifiers, compilation with `-d`, and classpath execution.
 
 ---
 
 ### Key Features
-1. **Curated Technical Questions (Java Full Stack & DevOps)**:
-   - **Core Java**: JVM memory architecture (Metaspace), String pool immutability, `ConcurrentHashMap` concurrency mechanisms, Java 8 Stream API (`map` vs `flatMap`).
-   - **Java Full Stack**: Spring Boot annotations (`@SpringBootApplication`), `@RestController` vs `@Controller`, Spring Bean singleton scope, Spring Boot Actuator, Hibernate N+1 select problem & `JOIN FETCH`, HTTP idempotency (PUT vs POST), CORS browser security, stateless JWT authentication.
-   - **DevOps**: Docker `CMD` vs `ENTRYPOINT`, multi-stage Docker builds for Spring Boot, Kubernetes Pods and LoadBalancer Services, CI/CD automated pipeline stages, `git merge` vs `git rebase`, Linux `jps` process diagnostics, and Maven lifecycle (`mvn clean package`).
+1. **Curated Technical Questions (Java Packages - 25 Questions)**:
+   - **Package Basics & Namespace**: Package definitions, package keywords, placement at top of file, `java.lang` automatic import, naming conventions.
+   - **Import Statements & Mechanics**: Specific imports, wildcard `.*` non-recursive behavior, fully qualified names vs simple names.
+   - **Access Modifiers & Visibility**: `public`, `protected`, default (package-private), `private` across package boundaries and subclasses.
+   - **Compilation & Execution**: `javac -d .` automatic folder hierarchy creation, execution via fully qualified name `java college.Student`, subpackage independence (`java.util` vs `java.util.concurrent`).
 
-2. **Last Marks & Score Tracking**:
+2. **One-Question-at-a-Time Navigation**:
+   - Clean, focused interface displaying **one question at a time**.
+   - **Next Question** button to proceed smoothly to the next question.
+   - **Previous Question** button to review or change earlier answers.
+   - **Question Jump Palette (1 - 25)**: interactive grid allowing instant jumping to any question, color-coded by Answered, Current, and Unanswered status.
+   - **Live Progress Bar**: tracks progress percentage as the user moves through the assessment.
+
+3. **Last Marks & Score Tracking**:
    - Displays the candidate's score, percentage, and qualification status (`PASSED` at 60%+, or `NEEDS IMPROVEMENT`).
    - Stores and compares previous attempt marks against the current attempt (`+X marks improvement`).
    - Provides an itemized breakdown of Correct, Incorrect, and Unattempted questions.
 
-3. **Retry Option**:
+4. **Retry Option**:
    - A dedicated **Retry Quiz** button on the results page.
    - Resets questions for a clean attempt while preserving and displaying the last scored marks.
-   - Allows students/candidates to learn from their mistakes and retake the test.
+   - Retakes test one-by-one to reinforce learning.
 
-4. **Detailed Answer Review & Concept Explanations**:
-   - Displays every question with the candidate's chosen answer vs. the correct answer.
+5. **Detailed Answer Review & Concept Explanations**:
+   - Displays all 25 questions with the candidate's chosen answer vs. the correct answer.
    - Provides in-depth explanations for why the correct option is right.
 
-5. **Simple, Human-Made UI**:
+6. **Simple, Human-Made UI**:
    - Clean, purposeful design crafted with pure semantic HTML and CSS.
    - No external icon packs (no FontAwesome, no SVG clutter, no emojis in buttons).
    - Fully self-contained: requires no external CDNs or internet access to render cleanly.

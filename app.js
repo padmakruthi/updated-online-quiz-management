@@ -1,266 +1,357 @@
-// Online Quiz Management - Client-side engine for Vercel / Static Hosting
-// Contains all 20 Java Full Stack & DevOps questions
+// Online Quiz Management - Client-side engine for Java Packages Assessment
+// Single-question step-by-step navigation (Next / Previous / Palette Jump)
+// Synced with Database: java_question_bank (Table: mcq_questions)
 
 const ALL_QUESTIONS = [
     {
         id: 1,
-        topic: "Core Java",
-        questionText: "Which of the following is NOT one of the four fundamental principles of Object-Oriented Programming (OOP) in Java?",
+        topic: "Java Packages",
+        questionText: "What is a package in Java?",
+        codeSnippet: null,
         options: [
-            "Encapsulation",
-            "Compilation",
-            "Inheritance",
-            "Polymorphism"
+            "A collection of variables only",
+            "A collection of related classes, interfaces, and other types",
+            "A type of loop",
+            "A method inside a class"
         ],
-        correctOption: 1,
-        explanation: "The four main pillars of OOP in Java are Encapsulation, Inheritance, Polymorphism, and Abstraction. Compilation is the process of translating source code into bytecode."
+        correctOption: 1, // B
+        explanation: "A package in Java is a collection of related classes, interfaces, and other types that provides namespace management and access protection."
     },
     {
         id: 2,
-        topic: "Core Java",
-        questionText: "What is the effect of applying the 'final' keyword to a variable in Java?",
+        topic: "Java Packages",
+        questionText: "Which keyword is used to declare a package in Java?",
+        codeSnippet: null,
         options: [
-            "The variable can only be accessed within the same package",
-            "The variable's value becomes constant and cannot be reassigned once initialized",
-            "The variable is automatically destroyed by the Garbage Collector",
-            "The variable can only store primitive numeric values"
+            "import",
+            "include",
+            "package",
+            "class"
         ],
-        correctOption: 1,
-        explanation: "When a variable is declared with the 'final' keyword, its value or reference cannot be reassigned after initialization."
+        correctOption: 2, // C
+        explanation: "The 'package' keyword is used to declare the package to which the source file belongs."
     },
     {
         id: 3,
-        topic: "Core Java",
-        questionText: "What is the difference between '==' and the '.equals()' method when comparing two String objects in Java?",
+        topic: "Java Packages",
+        questionText: "Where should the package declaration normally appear?",
+        codeSnippet: null,
         options: [
-            "'==' checks if values are equal, while '.equals()' checks memory addresses",
-            "'==' compares object memory references (addresses), while '.equals()' compares the actual text content",
-            "Both '==' and '.equals()' behave exactly the same for Strings",
-            "'.equals()' only works for primitive data types"
+            "After the class declaration",
+            "Before imports and type declarations",
+            "Inside main()",
+            "At the end of the file"
         ],
-        correctOption: 1,
-        explanation: "'==' verifies if two references point to the exact same memory location, whereas String.equals() checks if the sequence of characters (content) matches."
+        correctOption: 1, // B
+        explanation: "The package statement must appear before any imports and type declarations at the very beginning of the source file."
     },
     {
         id: 4,
-        topic: "Core Java",
-        questionText: "Which Java Collection interface implementation stores key-value pairs and does NOT guarantee any specific ordering?",
+        topic: "Java Packages",
+        questionText: "Which package is imported automatically?",
+        codeSnippet: null,
         options: [
-            "ArrayList",
-            "TreeSet",
-            "HashMap",
-            "LinkedList"
+            "java.util",
+            "java.io",
+            "java.lang",
+            "java.net"
         ],
-        correctOption: 2,
-        explanation: "HashMap stores elements as key-value pairs (Map interface) and does not guarantee any order of elements over time."
+        correctOption: 2, // C
+        explanation: "The 'java.lang' package provides fundamental language classes and is automatically imported into every Java source file."
     },
     {
         id: 5,
-        topic: "Core Java",
-        questionText: "In Java exception handling, which block is guaranteed to execute whether an exception occurs or not?",
+        topic: "Java Packages",
+        questionText: "Which keyword allows you to use classes from another package?",
+        codeSnippet: null,
         options: [
-            "catch block",
-            "throw block",
-            "finally block",
-            "throws clause"
+            "package",
+            "import",
+            "extends",
+            "implements"
         ],
-        correctOption: 2,
-        explanation: "The 'finally' block always executes after try and catch blocks, making it ideal for cleaning up resources like closing streams or database connections."
+        correctOption: 1, // B
+        explanation: "The 'import' keyword allows classes, interfaces, and static members from external packages to be used by simple name."
     },
     {
         id: 6,
-        topic: "Spring Boot",
-        questionText: "What is the primary benefit of using Spring Boot compared to the traditional Spring Framework?",
+        topic: "Java Packages",
+        questionText: "Which statement correctly imports Scanner?",
+        codeSnippet: null,
         options: [
-            "It eliminates the need to write Java code",
-            "It provides auto-configuration, embedded servers (like Tomcat), and starter dependencies for rapid development",
-            "It replaces HTML and JavaScript in frontend development",
-            "It only works with offline applications"
+            "import java.util.Scanner;",
+            "include java.util.Scanner;",
+            "package java.util.Scanner;",
+            "import Scanner.java.util;"
         ],
-        correctOption: 1,
-        explanation: "Spring Boot simplifies Spring development by offering opinionated starter POMs, automatic sensible default configurations, and embedded servlet containers (Tomcat, Jetty)."
+        correctOption: 0, // A
+        explanation: "Scanner resides in java.util, imported using 'import java.util.Scanner;'."
     },
     {
         id: 7,
-        topic: "Spring Boot",
-        questionText: "Which annotation is used on a method in a Spring Boot controller to handle incoming HTTP GET requests?",
+        topic: "Java Packages",
+        questionText: "What does import java.util.*; do?",
+        codeSnippet: "import java.util.*;",
         options: [
-            "@GetMapping",
-            "@PostMapping",
-            "@ResponseBody",
-            "@PutMapping"
+            "Imports only Scanner",
+            "Imports all Java packages",
+            "Makes types in java.util available by simple names",
+            "Creates a package"
         ],
-        correctOption: 0,
-        explanation: "@GetMapping is a shortcut annotation that acts as a synonym for @RequestMapping(method = RequestMethod.GET)."
+        correctOption: 2, // C
+        explanation: "'import java.util.*;' is an on-demand import declaration that makes types directly in java.util available by simple names."
     },
     {
         id: 8,
-        topic: "Spring Boot",
-        questionText: "Which annotation is commonly used in Spring to automatically inject a dependency bean into another component?",
+        topic: "Java Packages",
+        questionText: "What does import java.util.*; import?",
+        codeSnippet: null,
         options: [
-            "@Injectable",
-            "@Autowired",
-            "@Component",
-            "@Repository"
+            "Imports subpackages automatically",
+            "Imports accessible types directly in java.util, not subpackages",
+            "Imports only interfaces",
+            "Imports only classes with main()"
         ],
-        correctOption: 1,
-        explanation: "@Autowired is used in Spring to automatically wire (inject) collaborating beans by type into fields, constructors, or setter methods."
+        correctOption: 1, // B
+        explanation: "Wildcard imports in Java do not recursively import subpackages. It only imports accessible types directly in java.util."
     },
     {
         id: 9,
-        topic: "Java Full Stack",
-        questionText: "In RESTful web services, which HTTP status code indicates a successful request?",
+        topic: "Java Packages",
+        questionText: "Which is a valid package name?",
+        codeSnippet: null,
         options: [
-            "404 Not Found",
-            "500 Internal Server Error",
-            "200 OK",
-            "401 Unauthorized"
+            "my package",
+            "123package",
+            "com.college.student",
+            "com-college"
         ],
-        correctOption: 2,
-        explanation: "HTTP 200 OK is the standard response code for successful HTTP requests (such as GET, PUT, or POST)."
+        correctOption: 2, // C
+        explanation: "'com.college.student' follows standard Java identifier rules separated by dots."
     },
     {
         id: 10,
-        topic: "Java Full Stack",
-        questionText: "In Java Full Stack backend development, what does 'ORM' stand for?",
+        topic: "Java Packages",
+        questionText: "Which declaration is correct for a class in college?",
+        codeSnippet: null,
         options: [
-            "Object-Relational Mapping",
-            "Online Resource Management",
-            "Ordered Relationship Model",
-            "Open Routing Module"
+            "import college;",
+            "package college;",
+            "class package college;",
+            "include college;"
         ],
-        correctOption: 0,
-        explanation: "ORM stands for Object-Relational Mapping, a programming technique that maps Java classes (entities) to relational database tables (e.g. Hibernate, EclipseLink)."
+        correctOption: 1, // B
+        explanation: "The statement 'package college;' specifies that the class belongs to package college."
     },
     {
         id: 11,
-        topic: "Java Full Stack",
-        questionText: "In Spring Data JPA, which interface provides ready-to-use CRUD methods like save(), findById(), and deleteById()?",
+        topic: "Java Packages",
+        questionText: "Which access modifier allows access from any package if the class is accessible?",
+        codeSnippet: null,
         options: [
-            "JpaRepository",
-            "HttpServlet",
-            "DataSource",
-            "EntityManagerFactory"
+            "private",
+            "Default",
+            "protected",
+            "public"
         ],
-        correctOption: 0,
-        explanation: "JpaRepository (extending PagingAndSortingRepository and CrudRepository) provides standard CRUD and pagination operations without writing manual SQL."
+        correctOption: 3, // D
+        explanation: "'public' grants access to members from any package, as long as the containing class itself is accessible."
     },
     {
         id: 12,
-        topic: "Java Full Stack",
-        questionText: "In the Model-View-Controller (MVC) architecture, what is the role of the Controller?",
+        topic: "Java Packages",
+        questionText: "A member with no access modifier is accessible from:",
+        codeSnippet: null,
         options: [
-            "It represents the database tables and schemas directly",
-            "It displays the visual user interface to the client",
-            "It handles incoming HTTP requests, coordinates with service/model layers, and returns responses",
-            "It configures hardware networking ports"
+            "Every package",
+            "Only the same class",
+            "Classes in the same package",
+            "Only subclasses in other packages"
         ],
-        correctOption: 2,
-        explanation: "The Controller acts as an intermediary: it intercepts incoming user requests, invokes business logic/services, and selects data or views to send back."
+        correctOption: 2, // C
+        explanation: "Default (package-private) access restricts visibility strictly to classes in the same package."
     },
     {
         id: 13,
-        topic: "DevOps",
-        questionText: "Which Git command saves staged changes to your local repository along with a descriptive message?",
+        topic: "Java Packages",
+        questionText: "Which modifier restricts access to the declaring class?",
+        codeSnippet: null,
         options: [
-            "git push",
-            "git commit -m \"message\"",
-            "git add .",
-            "git checkout"
+            "public",
+            "protected",
+            "private",
+            "Default"
         ],
-        correctOption: 1,
-        explanation: "'git commit -m \"message\"' records a snapshot of staged changes to the local repository history with a commit message."
+        correctOption: 2, // C
+        explanation: "'private' specifies that the member can only be accessed within the body of the class that declares it."
     },
     {
         id: 14,
-        topic: "DevOps",
-        questionText: "Which Git command downloads commits from a remote repository and immediately integrates them into your current local branch?",
+        topic: "Java Packages",
+        questionText: "A protected member can be accessed outside its package by:",
+        codeSnippet: null,
         options: [
-            "git pull",
-            "git clone",
-            "git init",
-            "git status"
+            "Any unrelated class",
+            "A subclass subject to protected-access rules",
+            "Only main()",
+            "No class"
         ],
-        correctOption: 0,
-        explanation: "'git pull' fetches commits from the remote repository and automatically merges them into the current active local branch."
+        correctOption: 1, // B
+        explanation: "'protected' allows access within the same package, and outside the package by subclasses subject to Java's protected-access rules."
     },
     {
         id: 15,
-        topic: "DevOps",
-        questionText: "What is the plain text configuration file that contains the step-by-step instructions to create a Docker container image?",
+        topic: "Java Packages",
+        questionText: "Which statement is correct for two classes in the same package?",
+        codeSnippet: null,
         options: [
-            "docker-compose.yml",
-            "Dockerfile",
-            "pom.xml",
-            "application.properties"
+            "They can directly access each other private members",
+            "They can access each other package-private members",
+            "They must always import each other",
+            "They must be in the same file"
         ],
-        correctOption: 1,
-        explanation: "A 'Dockerfile' is a text document containing commands (FROM, COPY, RUN, CMD, etc.) that Docker uses to assemble a container image."
+        correctOption: 1, // B
+        explanation: "Classes in the same package share package-level visibility and can access each other's package-private members without import statements."
     },
     {
         id: 16,
-        topic: "DevOps",
-        questionText: "Which Docker CLI command is used to list all currently running containers?",
+        topic: "Java Packages",
+        questionText: "What happens when Test in package demo imports java.util.Scanner correctly?",
+        codeSnippet: "package demo;\nimport java.util.Scanner;\n\npublic class Test {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n    }\n}",
         options: [
-            "docker build",
-            "docker ps",
-            "docker stop",
-            "docker run"
+            "Error because package is demo",
+            "Error because Scanner cannot be imported",
+            "It compiles if file and directory setup is correct",
+            "Runtime error because packages require inheritance"
         ],
-        correctOption: 1,
-        explanation: "'docker ps' lists all active running containers. Adding the '-a' flag ('docker ps -a') lists both running and stopped containers."
+        correctOption: 2, // C
+        explanation: "The syntax and structure are completely valid. It compiles cleanly when the directory matches the package demo."
     },
     {
         id: 17,
-        topic: "DevOps",
-        questionText: "In Linux, which command is used to display the contents (files and directories) of the current folder?",
+        topic: "Java Packages",
+        questionText: "What is the fully qualified name of Student in package college?",
+        codeSnippet: null,
         options: [
-            "pwd",
-            "cd",
-            "ls",
-            "mkdir"
+            "Student.college",
+            "college.Student",
+            "college/Student",
+            "Student::college"
         ],
-        correctOption: 2,
-        explanation: "'ls' lists directory contents in Linux. 'pwd' shows the current working directory, and 'cd' changes directory."
+        correctOption: 1, // B
+        explanation: "The fully qualified name prefix the package name before the class name separated by a dot: 'college.Student'."
     },
     {
         id: 18,
-        topic: "DevOps",
-        questionText: "What does the acronym 'CI/CD' stand for in DevOps methodology?",
+        topic: "Java Packages",
+        questionText: "Which command compiles Student.java with package college and creates output directories?",
+        codeSnippet: null,
         options: [
-            "Central Integration / Cloud Deployment",
-            "Continuous Integration / Continuous Deployment (or Delivery)",
-            "Code Inspection / Continuous Distribution",
-            "Container Interface / Container Driver"
+            "javac -d . Student.java",
+            "java -d . Student.java",
+            "import -d . Student.java",
+            "package Student.java"
         ],
-        correctOption: 1,
-        explanation: "CI/CD stands for Continuous Integration and Continuous Deployment (or Continuous Delivery), automating the building, testing, and deployment of software."
+        correctOption: 0, // A
+        explanation: "'javac -d . Student.java' compiles the file and automatically creates the destination directory structure."
     },
     {
         id: 19,
-        topic: "DevOps",
-        questionText: "Which widely used open-source automation tool is popular for building and managing automated CI/CD pipelines?",
+        topic: "Java Packages",
+        questionText: "How do you run college.Student from the classpath root?",
+        codeSnippet: null,
         options: [
-            "Jenkins",
-            "Eclipse IDE",
-            "Postman",
-            "MySQL Workbench"
+            "java Student",
+            "java college.Student",
+            "java package.Student",
+            "javac college.Student"
         ],
-        correctOption: 0,
-        explanation: "Jenkins is a leading open-source automation server used by DevOps teams to build, test, and deploy applications continuously."
+        correctOption: 1, // B
+        explanation: "From the classpath root, Java requires the fully qualified name to run a class in a package: 'java college.Student'."
     },
     {
         id: 20,
-        topic: "DevOps",
-        questionText: "In an Apache Maven Java project, what is the primary configuration file that manages project dependencies, plugins, and build goals?",
+        topic: "Java Packages",
+        questionText: "Which statement about packages is true?",
+        codeSnippet: null,
         options: [
-            "package.json",
-            "build.gradle",
-            "pom.xml",
-            "web.xml"
+            "They organize related classes and avoid naming conflicts",
+            "Every class must import java.lang",
+            "A package can contain only one class",
+            "Packages cannot contain interfaces"
         ],
-        correctOption: 2,
-        explanation: "'pom.xml' (Project Object Model) is the XML file in Maven that defines project metadata, library dependencies, plugins, and build lifecycle configurations."
+        correctOption: 0, // A
+        explanation: "Packages organize related classes and interfaces into modular namespaces and prevent naming collisions."
+    },
+    {
+        id: 21,
+        topic: "Java Packages",
+        questionText: "Can different packages contain classes with the same simple name?",
+        codeSnippet: null,
+        options: [
+            "No",
+            "Yes, if their fully qualified names differ",
+            "Only abstract classes",
+            "Only classes with identical methods"
+        ],
+        correctOption: 1, // B
+        explanation: "Yes, distinct packages can contain classes with the same simple name because their fully qualified names are unique."
+    },
+    {
+        id: 22,
+        topic: "Java Packages",
+        questionText: "How can you use ArrayList without an import statement?",
+        codeSnippet: null,
+        options: [
+            "ArrayList a = new ArrayList();",
+            "java.util.ArrayList a = new java.util.ArrayList();",
+            "package.ArrayList a = new package.ArrayList();",
+            "import.ArrayList a = new import.ArrayList();"
+        ],
+        correctOption: 1, // B
+        explanation: "Using the fully qualified name 'java.util.ArrayList' allows the class to be used directly without an import declaration."
+    },
+    {
+        id: 23,
+        topic: "Java Packages",
+        questionText: "Can a Java source file contain multiple package declarations?",
+        codeSnippet: null,
+        options: [
+            "Yes, one per class",
+            "Yes, separated by imports",
+            "No, at most one package declaration",
+            "Only with interfaces"
+        ],
+        correctOption: 2, // C
+        explanation: "A Java compilation unit can contain at most one package declaration statement at the top of the file."
+    },
+    {
+        id: 24,
+        topic: "Java Packages",
+        questionText: "What is the relationship between java.util and java.util.concurrent?",
+        codeSnippet: null,
+        options: [
+            "A subpackage inherits parent types automatically",
+            "A subpackage is a separate package",
+            "Both names refer to the same package",
+            "Subpackages cannot contain classes"
+        ],
+        correctOption: 1, // B
+        explanation: "In Java, subpackages are separate packages with no inheritance of visibility from the parent package."
+    },
+    {
+        id: 25,
+        topic: "Java Packages",
+        questionText: "Which statement about import is correct?",
+        codeSnippet: null,
+        options: [
+            "It copies a class into the current package",
+            "It changes a class package",
+            "It allows an accessible, unambiguous type to be referred to by simple name",
+            "It is mandatory for every class"
+        ],
+        correctOption: 2, // C
+        explanation: "The import statement simply allows an accessible type to be referenced by its simple name instead of writing its fully qualified name."
     }
 ];
 
@@ -269,6 +360,8 @@ let state = {
     candidateName: localStorage.getItem("candidateName") || "",
     category: "ALL",
     questions: [],
+    currentQuestionIndex: 0,
+    userAnswers: {},
     attemptNumber: parseInt(localStorage.getItem("attemptNumber") || "1"),
     lastScore: localStorage.getItem("lastScore") !== null ? parseInt(localStorage.getItem("lastScore")) : null,
     lastTotal: localStorage.getItem("lastTotal") !== null ? parseInt(localStorage.getItem("lastTotal")) : null
@@ -280,7 +373,7 @@ function init() {
 
 function renderStartScreen() {
     const app = document.getElementById("app");
-    
+
     let lastRecordHtml = "";
     if (state.lastScore !== null && state.lastTotal !== null) {
         const pct = Math.round((state.lastScore / state.lastTotal) * 100);
@@ -294,7 +387,7 @@ function renderStartScreen() {
                     <strong>[ ${status} ]</strong>
                 </p>
                 <p style="margin-top: 6px; font-size: 13px;">
-                    You can retry the assessment below to improve your score.
+                    You can retry the assessment below to test your knowledge again.
                 </p>
             </div>
         `;
@@ -303,16 +396,17 @@ function renderStartScreen() {
     app.innerHTML = `
         <div class="header">
             <h1>Online Quiz System</h1>
-            <p>Technical Assessment Portal - Java Full Stack & DevOps</p>
+            <p>Database: <strong>java_question_bank</strong> | Table: <strong>mcq_questions</strong> (25 Questions)</p>
         </div>
 
         ${lastRecordHtml}
 
         <div class="banner banner-info">
             <div class="banner-title">Assessment Guidelines</div>
-            <p>- Each question carries 1 mark. There is no negative marking.</p>
-            <p>- Questions cover Core Java, Spring Boot, JPA/Hibernate, REST, Docker, Kubernetes, CI/CD, and Git.</p>
-            <p>- Passing score is 60%. Detailed answer keys and explanations will be provided upon submission.</p>
+            <p>- Contains <strong>25 Multiple Choice Questions</strong> on Java Packages, synchronized with table <code>mcq_questions</code>.</p>
+            <p>- <strong>One question is presented at a time</strong>. Click <strong>Next Question &rarr;</strong> to proceed.</p>
+            <p>- You can jump to any question directly using the Question Navigator buttons (1 - 25).</p>
+            <p>- Each question carries 1 mark. Passing score is 60% (15/25).</p>
         </div>
 
         <form id="startForm">
@@ -322,11 +416,9 @@ function renderStartScreen() {
             </div>
 
             <div class="form-group">
-                <label for="category">Select Assessment Module:</label>
+                <label for="category">Assessment Module:</label>
                 <select id="category" class="form-control">
-                    <option value="ALL">Complete Assessment (Java Full Stack & DevOps - 20 Questions)</option>
-                    <option value="JAVA">Java Full Stack Focused (Core Java, Spring Boot, Hibernate - 12 Questions)</option>
-                    <option value="DEVOPS">DevOps Focused (Docker, Kubernetes, CI/CD, Git, Linux - 8 Questions)</option>
+                    <option value="ALL">Java Question Bank - Complete 25 MCQs (Java Packages)</option>
                 </select>
             </div>
 
@@ -336,7 +428,7 @@ function renderStartScreen() {
         </form>
 
         <div class="footer">
-            <p>Online Quiz Management System | Ready for Vercel & Eclipse Tomcat Deployment</p>
+            <p>Online Quiz Management System | Step-by-Step Test Engine</p>
         </div>
     `;
 
@@ -344,122 +436,234 @@ function renderStartScreen() {
         e.preventDefault();
         const nameInput = document.getElementById("candidateName").value.trim();
         state.candidateName = nameInput || "Student";
-        state.category = document.getElementById("category").value;
         localStorage.setItem("candidateName", state.candidateName);
         startQuiz();
     });
 }
 
 function startQuiz() {
-    if (state.category === "JAVA") {
-        state.questions = ALL_QUESTIONS.filter(q => q.topic === "Core Java" || q.topic === "Spring Boot" || q.topic === "Java Full Stack");
-    } else if (state.category === "DEVOPS") {
-        state.questions = ALL_QUESTIONS.filter(q => q.topic === "DevOps");
-    } else {
-        state.questions = [...ALL_QUESTIONS];
-    }
-
+    state.questions = [...ALL_QUESTIONS];
+    state.currentQuestionIndex = 0;
+    state.userAnswers = {};
     renderQuizScreen();
 }
 
 function renderQuizScreen() {
     const app = document.getElementById("app");
-    
-    let lastMarksBar = "";
-    let retryNotice = "";
-    if (state.lastScore !== null && state.lastTotal !== null) {
-        lastMarksBar = `<div class="meta-item" style="color: #744210;">Last Marks: <strong>${state.lastScore} / ${state.lastTotal}</strong></div>`;
-        retryNotice = `
-            <div class="banner banner-previous">
-                <strong>Retry Mode Active:</strong> You scored <strong>${state.lastScore} out of ${state.lastTotal}</strong> on your previous attempt. Re-answer the questions below to improve your score!
-            </div>
-        `;
-    }
-
+    const totalQ = state.questions.length;
+    const currentIdx = state.currentQuestionIndex;
+    const currentQ = state.questions[currentIdx];
     const letters = ["A", "B", "C", "D"];
-    let questionsHtml = "";
 
+    let attemptedCount = 0;
+    state.questions.forEach(q => {
+        if (state.userAnswers[q.id] !== undefined) {
+            attemptedCount++;
+        }
+    });
+
+    const isCurrentAttempted = state.userAnswers[currentQ.id] !== undefined;
+    const currentSelection = isCurrentAttempted ? state.userAnswers[currentQ.id] : -1;
+    const progressPct = Math.round(((currentIdx + 1) / totalQ) * 100);
+
+    let paletteHtml = "";
     state.questions.forEach((q, idx) => {
-        const inputName = "q_" + q.id;
-        let optionsHtml = "";
-        q.options.forEach((opt, optIdx) => {
-            const radioId = `q_${q.id}_opt_${optIdx}`;
-            optionsHtml += `
-                <label class="option-item" for="${radioId}">
-                    <input type="radio" id="${radioId}" name="${inputName}" value="${optIdx}">
-                    <span class="option-text">
-                        <span class="option-letter">${letters[optIdx]}.</span>
-                        ${escapeHtml(opt)}
-                    </span>
-                </label>
-            `;
-        });
+        const isAnswered = state.userAnswers[q.id] !== undefined;
+        const isActive = idx === currentIdx;
+        let classes = "palette-btn";
+        if (isAnswered) classes += " answered";
+        if (isActive) classes += " active";
 
-        questionsHtml += `
-            <div class="question-card" id="qcard_${q.id}">
-                <div class="question-header">
-                    <span class="question-number">Question ${idx + 1} of ${state.questions.length}</span>
-                    <span class="topic-badge">${q.topic}</span>
-                </div>
-                <div class="question-text">${escapeHtml(q.questionText)}</div>
-                <div class="options-list">${optionsHtml}</div>
-                <div style="margin-top: 8px;">
-                    <span class="clear-link" onclick="clearRadio('${inputName}')">Clear selection for this question</span>
-                </div>
-            </div>
+        paletteHtml += `
+            <button type="button" class="${classes}" onclick="jumpToQuestion(${idx})" title="Go to Question ${idx + 1}${isAnswered ? ' (Answered)' : ''}">
+                ${idx + 1}
+            </button>
         `;
     });
+
+    let snippetHtml = "";
+    if (currentQ.codeSnippet && currentQ.codeSnippet.trim().length > 0) {
+        snippetHtml = `<pre class="code-snippet">${escapeHtml(currentQ.codeSnippet)}</pre>`;
+    }
+
+    let optionsHtml = "";
+    currentQ.options.forEach((opt, optIdx) => {
+        const isSelected = currentSelection === optIdx;
+        const radioId = `opt_${currentQ.id}_${optIdx}`;
+        optionsHtml += `
+            <label class="option-item ${isSelected ? 'selected' : ''}" for="${radioId}">
+                <input type="radio" id="${radioId}" name="current_question_option" value="${optIdx}" ${isSelected ? 'checked' : ''} onchange="selectOption(${currentQ.id}, ${optIdx})">
+                <span class="option-text">
+                    <span class="option-letter">${letters[optIdx]}.</span>
+                    ${escapeHtml(opt)}
+                </span>
+            </label>
+        `;
+    });
+
+    let lastMarksBar = "";
+    if (state.lastScore !== null && state.lastTotal !== null) {
+        lastMarksBar = `<div class="meta-item" style="color: #744210;">Previous Marks: <strong>${state.lastScore} / ${state.lastTotal}</strong></div>`;
+    }
+
+    const isFirstQuestion = currentIdx === 0;
+    const isLastQuestion = currentIdx === totalQ - 1;
 
     app.innerHTML = `
         <div class="header">
             <h1>Online Quiz Assessment</h1>
-            <p>Technical Assessment Portal - Java Full Stack & DevOps</p>
+            <p>Database: <strong>java_question_bank</strong> | Table: <strong>mcq_questions</strong></p>
         </div>
 
         <div class="meta-bar">
             <div class="meta-item">Candidate: <strong>${escapeHtml(state.candidateName)}</strong></div>
-            <div class="meta-item">Module: <strong>${state.category}</strong></div>
-            <div class="meta-item">Total Questions: <strong>${state.questions.length}</strong></div>
+            <div class="meta-item">Question: <strong>${currentIdx + 1} of ${totalQ}</strong></div>
+            <div class="meta-item">Answered: <strong>${attemptedCount} / ${totalQ}</strong></div>
             <div class="meta-item">Attempt: <strong>#${state.attemptNumber}</strong></div>
             ${lastMarksBar}
         </div>
 
-        ${retryNotice}
+        <!-- Progress Bar -->
+        <div class="progress-container" title="Progress: ${progressPct}%">
+            <div class="progress-fill" style="width: ${progressPct}%;"></div>
+        </div>
 
-        <form id="quizForm">
-            ${questionsHtml}
-
-            <div class="btn-group">
-                <button type="submit" class="btn btn-primary" style="flex: 2;">Submit Assessment</button>
-                <button type="button" class="btn btn-outline" style="flex: 1;" onclick="cancelQuiz()">Cancel Assessment</button>
+        <!-- Question Palette Jump Grid -->
+        <div class="palette-wrapper">
+            <div class="palette-header">
+                <span>Question Navigator (Click number to jump):</span>
+                <span>${attemptedCount} of ${totalQ} Answered</span>
             </div>
-        </form>
+            <div class="question-palette">
+                ${paletteHtml}
+            </div>
+            <div class="palette-legend">
+                <span class="legend-item"><span class="legend-dot current"></span> Current (${currentIdx + 1})</span>
+                <span class="legend-item"><span class="legend-dot answered"></span> Answered</span>
+                <span class="legend-item"><span class="legend-dot unanswered"></span> Unanswered</span>
+            </div>
+        </div>
+
+        <!-- Active Question Card -->
+        <div class="question-card">
+            <div class="question-header">
+                <div>
+                    <span class="question-number">Question ${currentIdx + 1} of ${totalQ}</span>
+                    <span style="margin-left: 10px;">
+                        ${isCurrentAttempted ? 
+                            '<span class="question-summary-badge status-badge-answered">Answered</span>' : 
+                            '<span class="question-summary-badge status-badge-unanswered">Not Answered Yet</span>'}
+                    </span>
+                </div>
+                <span class="topic-badge">${currentQ.topic}</span>
+            </div>
+
+            <div class="question-text">${escapeHtml(currentQ.questionText)}</div>
+            ${snippetHtml}
+
+            <div class="options-list">
+                ${optionsHtml}
+            </div>
+
+            <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+                <span class="clear-link" onclick="clearCurrentSelection(${currentQ.id})">Clear answer for this question</span>
+                <span style="font-size: 12px; color: #718096;">Select an option, then click Next</span>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons: Previous / Next / Submit -->
+        <div class="quiz-nav-bar">
+            <div class="quiz-nav-left">
+                <button type="button" class="btn btn-outline" onclick="prevQuestion()" ${isFirstQuestion ? 'disabled' : ''}>
+                    &larr; Previous Question
+                </button>
+            </div>
+
+            <div class="quiz-nav-right">
+                ${!isLastQuestion ? `
+                    <button type="button" class="btn btn-primary" onclick="nextQuestion()">
+                        Next Question &rarr;
+                    </button>
+                ` : `
+                    <button type="button" class="btn btn-primary" style="background-color: #2e7d32; border-color: #2e7d32;" onclick="confirmAndSubmit()">
+                        Finish & Submit Assessment &check;
+                    </button>
+                `}
+                
+                <button type="button" class="btn btn-secondary" onclick="confirmAndSubmit()">
+                    Submit Assessment (${attemptedCount}/${totalQ})
+                </button>
+
+                <button type="button" class="btn btn-outline" onclick="cancelQuiz()">
+                    Cancel
+                </button>
+            </div>
+        </div>
 
         <div class="footer">
-            <p>Online Quiz Management System | Java Full Stack & DevOps Assessment</p>
+            <p>Online Quiz Management System | One Question at a Time Mode</p>
         </div>
     `;
-
-    document.getElementById("quizForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        if (confirm("Are you sure you want to finish and submit your answers?")) {
-            evaluateQuiz();
-        }
-    });
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-window.clearRadio = function(groupName) {
-    const radios = document.getElementsByName(groupName);
-    for (let r of radios) {
-        r.checked = false;
+window.selectOption = function(questionId, optionIndex) {
+    state.userAnswers[questionId] = optionIndex;
+    renderQuizScreen();
+};
+
+window.clearCurrentSelection = function(questionId) {
+    delete state.userAnswers[questionId];
+    renderQuizScreen();
+};
+
+window.nextQuestion = function() {
+    if (state.currentQuestionIndex < state.questions.length - 1) {
+        state.currentQuestionIndex++;
+        renderQuizScreen();
+        window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+};
+
+window.prevQuestion = function() {
+    if (state.currentQuestionIndex > 0) {
+        state.currentQuestionIndex--;
+        renderQuizScreen();
+        window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+};
+
+window.jumpToQuestion = function(index) {
+    if (index >= 0 && index < state.questions.length) {
+        state.currentQuestionIndex = index;
+        renderQuizScreen();
+        window.scrollTo({ top: 120, behavior: 'smooth' });
     }
 };
 
 window.cancelQuiz = function() {
     if (confirm("Exit quiz without submitting? Current progress will be lost.")) {
         renderStartScreen();
+    }
+};
+
+window.confirmAndSubmit = function() {
+    const totalQ = state.questions.length;
+    let answeredCount = 0;
+    state.questions.forEach(q => {
+        if (state.userAnswers[q.id] !== undefined) {
+            answeredCount++;
+        }
+    });
+
+    const unansweredCount = totalQ - answeredCount;
+    let message = `You have answered ${answeredCount} of ${totalQ} questions.`;
+    if (unansweredCount > 0) {
+        message += `\nWarning: ${unansweredCount} question(s) are still unanswered.`;
+    }
+    message += "\n\nAre you sure you want to finish and submit your assessment?";
+
+    if (confirm(message)) {
+        evaluateQuiz();
     }
 };
 
@@ -470,15 +674,7 @@ function evaluateQuiz() {
     const reviews = [];
 
     state.questions.forEach(q => {
-        const radios = document.getElementsByName("q_" + q.id);
-        let selected = -1;
-        for (let r of radios) {
-            if (r.checked) {
-                selected = parseInt(r.value);
-                break;
-            }
-        }
-
+        const selected = state.userAnswers[q.id] !== undefined ? state.userAnswers[q.id] : -1;
         const isAttempted = selected >= 0;
         const isCorrect = isAttempted && (selected === q.correctOption);
 
@@ -503,11 +699,9 @@ function evaluateQuiz() {
     const percentage = total > 0 ? Math.round((score / total) * 1000) / 10 : 0;
     const status = percentage >= 60 ? "PASSED" : "NEEDS IMPROVEMENT";
 
-    // Save previous values for comparison
     const prevScore = state.lastScore;
     const prevTotal = state.lastTotal;
 
-    // Record as current last marks
     state.lastScore = score;
     state.lastTotal = total;
     localStorage.setItem("lastScore", score);
@@ -590,6 +784,11 @@ function renderResultScreen(res) {
             yourSelectionText = `<span style="color: ${color};">${letters[rev.selected]}. ${escapeHtml(q.options[rev.selected])}</span>`;
         }
 
+        let snippetReview = "";
+        if (q.codeSnippet && q.codeSnippet.trim().length > 0) {
+            snippetReview = `<pre class="code-snippet">${escapeHtml(q.codeSnippet)}</pre>`;
+        }
+
         reviewsHtml += `
             <div class="${cardClass}">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
@@ -599,6 +798,7 @@ function renderResultScreen(res) {
                 <div style="font-weight: 600; font-size: 15px; margin-bottom: 10px; color: #1a202c;">
                     ${escapeHtml(q.questionText)}
                 </div>
+                ${snippetReview}
                 <div class="review-answer-line">
                     Your Selection: <strong>${yourSelectionText}</strong>
                 </div>
@@ -615,12 +815,12 @@ function renderResultScreen(res) {
     app.innerHTML = `
         <div class="header">
             <h1>Assessment Report</h1>
-            <p>Technical Assessment Portal - Java Full Stack & DevOps</p>
+            <p>Database: <strong>java_question_bank</strong> | Table: <strong>mcq_questions</strong></p>
         </div>
 
         <div class="meta-bar">
             <div class="meta-item">Candidate: <strong>${escapeHtml(state.candidateName)}</strong></div>
-            <div class="meta-item">Module: <strong>${state.category}</strong></div>
+            <div class="meta-item">Module: <strong>Java Packages</strong></div>
             <div class="meta-item">Attempt: <strong>#${state.attemptNumber}</strong></div>
         </div>
 
@@ -656,10 +856,10 @@ function renderResultScreen(res) {
 
         <div class="btn-group" style="margin-bottom: 30px;">
             <button class="btn btn-primary" style="flex: 2; font-size: 15px; padding: 12px 20px;" onclick="retryQuiz()">
-                Retry Quiz (Retake with Previous Marks Saved)
+                Retry Quiz (Retake Assessment with Previous Score Saved)
             </button>
             <button class="btn btn-secondary" style="flex: 1; font-size: 15px; padding: 12px 20px;" onclick="renderStartScreen()">
-                Back to Home / Change Subject
+                Back to Home
             </button>
         </div>
 
@@ -676,7 +876,7 @@ function renderResultScreen(res) {
         </div>
 
         <div class="footer">
-            <p>Online Quiz Management System | Java Full Stack & DevOps Assessment</p>
+            <p>Online Quiz Management System | Java Packages Technical Assessment</p>
         </div>
     `;
 
@@ -686,6 +886,8 @@ function renderResultScreen(res) {
 window.retryQuiz = function() {
     state.attemptNumber++;
     localStorage.setItem("attemptNumber", state.attemptNumber);
+    state.currentQuestionIndex = 0;
+    state.userAnswers = {};
     renderQuizScreen();
 };
 

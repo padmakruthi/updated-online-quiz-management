@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Quiz System - Java Full Stack & DevOps</title>
+    <title>Online Quiz System - Java Packages Assessment</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
 <div class="container">
     <div class="header">
         <h1>Online Quiz System</h1>
-        <p>Technical Assessment Portal - Java Full Stack & DevOps</p>
+        <p>Technical Assessment Portal - Java Packages & Namespace Management</p>
     </div>
 
     <%
@@ -46,9 +46,10 @@
 
     <div class="banner banner-info">
         <div class="banner-title">Assessment Guidelines</div>
-        <p>- Each question carries 1 mark. There is no negative marking.</p>
-        <p>- Questions cover Core Java, Spring Boot, JPA/Hibernate, REST, Docker, Kubernetes, CI/CD, and Git.</p>
-        <p>- Passing score is 60%. Detailed answer keys and explanations will be provided upon submission.</p>
+        <p>- Contains <strong>25 Multiple Choice Questions</strong> on Java Packages, Import declarations, Access Modifiers, and Compilation/Execution.</p>
+        <p>- <strong>One question is presented at a time</strong>. Click <strong>Next</strong> to proceed or <strong>Previous</strong> to review.</p>
+        <p>- You can jump to any question directly using the question palette numbers.</p>
+        <p>- Each question carries 1 mark with no negative marking. Passing score is 60% (15/25).</p>
     </div>
 
     <form action="startQuiz.jsp" method="post">
@@ -59,11 +60,12 @@
         </div>
 
         <div class="form-group">
-            <label for="category">Select Assessment Module:</label>
+            <label for="category">Select Assessment Scope:</label>
             <select id="category" name="category" class="form-control">
-                <option value="ALL">Complete Assessment (Java Full Stack & DevOps - 20 Questions)</option>
-                <option value="JAVA">Java Full Stack Focused (Core Java, Spring Boot, Hibernate - 12 Questions)</option>
-                <option value="DEVOPS">DevOps Focused (Docker, Kubernetes, CI/CD, Git, Linux - 8 Questions)</option>
+                <option value="ALL">Complete Assessment (All 25 Questions on Java Packages)</option>
+                <option value="BASICS">Package Fundamentals & Imports (Questions 1 - 10)</option>
+                <option value="MODIFIERS">Access Modifiers & Visibility (Questions 11 - 15)</option>
+                <option value="EXECUTION">Compilation, Classpath & Subpackages (Questions 16 - 25)</option>
             </select>
         </div>
 
